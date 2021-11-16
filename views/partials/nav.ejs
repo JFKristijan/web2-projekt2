@@ -1,0 +1,41 @@
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <script>
+    function updateSec() {
+      fetch('/seclevel', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(res => res.json()).then(res => document.querySelector("#seclevel").innerHTML =
+        `Security level: ${res.securityLevel}`);
+    }
+  </script>
+  <a class="navbar-brand" href="/">WEB2</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+    aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <% if(locals.active && locals.active == 'sql' ){ %> active <% } %> ">
+        <a class="nav-link" href="/sql">SQL Injection </a>
+      </li>
+      <li class="nav-item <% if(locals.active && locals.active == 'xss' ){ %> active <% } %> ">
+        <a class="nav-link" href="/xss">Cross-site scripting (XSS)</a>
+      </li>
+      <li class="nav-item <% if(locals.active && locals.active == 'csrf' ){ %> active <% } %> ">
+        <a class="nav-link" href="/csrf">(Cross Site Request Forgery, CSRF)</a>
+      </li>
+    </ul>
+    <span class="navbar-text" id="seclevel">
+      Security level: <%= securityLevel %>
+    </span>
+    <button class='btn btn-secondary btn-sm ml-1' onclick="updateSec()">Toggle security level</button>
+  </div>
+</nav>

@@ -13,6 +13,9 @@ app.use(session({
   secret: 'play him off, keyboard cat',
   resave: true,
   saveUninitialized: true,
+  cookie: {
+    httpOnly: false
+  }
 }))
 
 var securityLevel = 0;
@@ -154,7 +157,7 @@ app.get('/status', function (req, res) {
           res.redirect('/csrf')
         });
 
-    }else{
+    } else {
       res.status(404).end()
     }
   }
@@ -174,7 +177,7 @@ app.post('/status', function (req, res) {
         }
         res.redirect('/csrf')
       });
-  }else{
+  } else {
     res.status(404).end()
   }
 });

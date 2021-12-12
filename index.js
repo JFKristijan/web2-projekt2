@@ -167,10 +167,9 @@ app.post('/status', function (req, res) {
   if (securityLevel == 0) {
     res.redirect('/csrf');
   }
-  let user;
   if (req.session.user) {
     db.run('insert into statuses(username,status) values (?,?)',
-      [req.session.user, req.query.status],
+      [req.session.user, req.body.status],
       (err, result) => {
         if (err) {
           console.log('Error' + err.message);

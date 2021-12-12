@@ -7,20 +7,33 @@
 
 <body class="bg-secondary">
     <%- include ("../partials/nav.ejs") %>
-    <div class='container align-items-center text-center'>
+    <div class='container align-items-center text-center '>
         <form action="" method="post">
             <div class="form-group">
-              <label for="formGroupExampleInput">Search for user:</label>
-              <input type="text" class="form-control" id="username" name="username" placeholder="Enter username here">
+                <label for="formGroupExampleInput">Search for user:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username here">
             </div>
             <button type="submit" class="btn btn-secondary bg-dark col">Search</button>
-          </form>
+        </form>
     </div>
-    <div class = "container align-items-center text-center">
-        <%  if(locals.users) {console.log(users); users.forEach(user => { %> 
-            <% console.log(user) %>
-            <p><%= user.password %></p>
-        <% }) } %>
+    <div class="container align-items-center text-center pt-2">
+        <%  if(locals.users) { %>
+        <table class="table table-dark bg-dark ">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+            <% users.forEach(user => { %>
+            <tr>
+                <td scope="row"><%= user.username %></td>
+                <td><%= user.email %></td>
+            </tr>
+
+            <% }) %>
+        </table>
+        <% } %>
     </div>
 </body>
 

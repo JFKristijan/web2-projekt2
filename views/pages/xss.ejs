@@ -7,6 +7,20 @@
 
 <body class="bg-secondary">
     <%- include ("../partials/nav.ejs") %>
+    <div class='container align-items-center text-center '>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Enter your name to get a greeting:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter name here">
+            </div>
+            <button type="submit" class="btn btn-secondary bg-dark col">Search</button>
+        </form>
+    </div>
+    <div class='container align-items-center text-center '>
+    <% if(locals.name){ %>
+        <h2>Hello <%- locals.name %></h2>
+    <% } %>
+</div>
 </body>
 
 </html>

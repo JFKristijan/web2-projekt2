@@ -4,9 +4,60 @@
 <head>
     <%- include ("../partials/header.ejs") %>
 </head>
-
+<script>
+    function logMeOut(){
+        fetch('/logout', {
+        method: 'post',
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(res => window.location = window.location.href);
+    }
+</script>
 <body class="bg-secondary">
     <%- include ("../partials/nav.ejs") %>
+
+    <div class='container align-items-center text-center '>
+        <%  if(locals.user) { %>
+            <h1>Your username is set to: <%= locals.user %></h1>
+            <button type="button" onclick="logMeOut()" class="btn btn-secondary bg-dark col">Logout</button>
+            <form id="statusform" action="/status" method=<%  if(locals.securityLevel == 0) { %> "get" <% }else{ %> "post" <% } %> >
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Post status update:</label>
+                    <input type="text" class="form-control" id="status" name="status" placeholder="Enter status here">
+                </div>
+                <button type="submit" class="btn btn-secondary bg-dark col">Post</button>
+            </form>
+        <% }else{ %>
+        <form action="" method="post">
+            <div class="form-group">
+                <label for="formGroupExampleInput">Set your username:</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username here">
+            </div>
+            <button type="submit" class="btn btn-secondary bg-dark col">Set username</button>
+        </form>
+        <% } %>
+    </div>
+
+    <div class="container align-items-center text-center pt-2">
+        <%  if(locals.status) { %>
+        <table class="table table-dark ">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+                </tr>
+            </thead>
+            <% status.forEach(stat => { %>
+            <tr>
+                <td scope="row"><%= stat.username %></td>
+                <td><%= stat.status %></td>
+            </tr>
+
+            <% }) %>
+        </table>
+        <% } %>
+        <a class="nav-link text-warning" href="/pictures">Kliknite ovdje na definitivno ne sumnjiv link za memeove</a>
 </body>
 
 </html>

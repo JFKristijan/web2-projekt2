@@ -12,8 +12,15 @@
         headers: {
           'Accept': 'application/json'
         }
-      }).then(res => res.json()).then(res => document.querySelector("#seclevel").innerHTML =
-        `Security level: ${res.securityLevel}`);
+      }).then(res => res.json()).then(res => {
+        document.querySelector("#seclevel").innerHTML =
+          `Security level: ${res.securityLevel}`;
+          var form = document.querySelector("#statusform")
+          if(form){
+            form.setAttribute("method",res.securityLevel==0?'get':'post');
+          }
+      });
+
     }
   </script>
   <a class="navbar-brand" href="/">WEB2</a>
